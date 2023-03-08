@@ -1,24 +1,32 @@
-  const questionUnderstand = `<span class="icon-text has-text-success">
-                                <span class="icon">
-                                  <i class="fas fa-check-square"></i>
-                                </span>
-                                <span>Разобрался</span>
-                              </span>`;
+//   const questionUnderstand = `<span class="icon-text has-text-success">
+//                                 <span class="icon">
+//                                   <i class="fas fa-check-square"></i>
+//                                 </span>
+//                                 <span>Разобрался</span>
+//                               </span>`;
 
-const questionDontUnderstand = `<span class="icon-text has-text-danger">
-                                  <span class="icon">
-                                    <i class="fas fa-ban"></i>
-                                  </span>
-                                  <span>Не разобрался</span>
-                                </span>`;
+// const questionDontUnderstand = `<span class="icon-text has-text-danger">
+//                                   <span class="icon">
+//                                     <i class="fas fa-ban"></i>
+//                                   </span>
+//                                   <span>Не разобрался</span>
+//                                 </span>`;
 
 list.forEach((el, index) => { 
   const listIndex = (index + 1);
-  const stateToggle = el.state == true ? questionUnderstand : questionDontUnderstand;
+  // const stateToggle = el.state == true ? questionUnderstand : questionDontUnderstand;
+  const stateSpan = el.state == true ? 'has-text-success' : 'has-text-danger';
+  const stateIcon = el.state == true ? 'fa-check-square' : 'fa-ban';
+  const stateText = el.state == true ? 'Разобрался' : 'Не разобрался';
   document.getElementById('list').insertAdjacentHTML('beforebegin', 
             `<div class="card p-5 m-3 has-text-link has-background-white">
                   ${listIndex}. ${el.question}
-                  ${stateToggle}
+                  <span class="icon-text ${stateSpan}">
+                    <span class="icon">
+                       <i class="fas ${stateIcon}"></i>
+                    </span>
+                    <span>${stateText}</span>
+                  </span>
               </div>`
 );
   })
