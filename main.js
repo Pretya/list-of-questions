@@ -1,34 +1,87 @@
-//   const questionUnderstand = `<span class="icon-text has-text-success">
-//                                 <span class="icon">
-//                                   <i class="fas fa-check-square"></i>
-//                                 </span>
-//                                 <span>Разобрался</span>
-//                               </span>`;
 
-// const questionDontUnderstand = `<span class="icon-text has-text-danger">
-//                                   <span class="icon">
-//                                     <i class="fas fa-ban"></i>
-//                                   </span>
-//                                   <span>Не разобрался</span>
-//                                 </span>`;
-
-list.forEach((el, index) => { 
+// ! Render List ==============
+const renderList = function(el, index) {
   const listIndex = (index + 1);
-  // const stateToggle = el.state == true ? questionUnderstand : questionDontUnderstand;
-  const stateSpan = el.state == true ? 'has-text-success' : 'has-text-danger';
-  const stateIcon = el.state == true ? 'fa-check-square' : 'fa-ban';
-  const stateText = el.state == true ? 'Разобрался' : 'Не разобрался';
-  document.getElementById('list').insertAdjacentHTML('beforebegin', 
-            `<div class="card p-5 m-3 has-text-link has-background-white">
-                  ${listIndex}. ${el.question}
-                  <span class="icon-text ${stateSpan}">
-                    <span class="icon">
-                       <i class="fas ${stateIcon}"></i>
-                    </span>
-                    <span>${stateText}</span>
-                  </span>
-              </div>`
-);
-  })
+  const elStateTrue = el.state == true;
+  const stateSpan = elStateTrue ? 'has-text-success' : 'has-text-danger';
+  const stateIcon = elStateTrue ? 'fa-check-square' : 'fa-ban';
+  const stateText = elStateTrue ? 'Разобрался' : 'Не разобрался';
+    document.getElementById('list').insertAdjacentHTML('beforeend', 
+              `<div class="card p-5 mt-3 has-text-link has-background-white">
+                    ${listIndex}. ${el.question}
+                      <span class="icon-text ${stateSpan}">
+                        <span class="icon">
+                          <i class="fas ${stateIcon}"></i>
+                        </span>
+                        <span>${stateText}</span>
+                      </span>
+                </div>`
+    );
+}
+
+// ! Checkbox ==============
+const checkBoxUnderstood = document.getElementById('check-understood');
+const checkBoxDidntUnderstand = document.getElementById('check-didntUnderstand');
+
+const checkboxAllQuestions = function(){
+  if(checkBoxDidntUnderstand.checked == false && checkBoxUnderstood.checked == false) {
+    showAllQuestinon();
+  }
+}
+
+function checkBoxStateTrue() {
+    if(checkBoxUnderstood.checked){
+      checkBoxDidntUnderstand.checked = false;
+    } 
+    if(checkBoxDidntUnderstand.checked){
+      checkBoxUnderstood.checked = false;
+    }
+    checkboxAllQuestions();
+}
 
 
+function checkBoxStateFalse() {
+    if(checkBoxDidntUnderstand.checked){
+      checkBoxUnderstood.checked = false;
+    }
+    checkboxAllQuestions();
+}
+
+// ! Textarea ===============
+  function submitQueastion() {
+    const textareaValue = document.getElementById('add-question').value;
+    const newObject = {question: textareaValue, state: false};
+
+      if(textareaValue !== ''){
+        list.unshift(newObject);
+        clearList();
+        list.forEach(renderList);
+        document.getElementById('add-question').value = "";
+        console.log(list);
+      }
+      if(checkBoxDidntUnderstand.checked == true || checkBoxUnderstood.checked == true) {
+        checkBoxDidntUnderstand.checked = false;
+        checkBoxUnderstood.checked = false;
+      }
+  }
+  
+// ! Filter List ================
+const clearList = (() => document.getElementById('list').innerHTML = '');
+
+function checkBoxFilterTrue() {
+  clearList();
+  const questionStatusTrue = list.filter(el => el.state == true);
+  questionStatusTrue.forEach(renderList);
+}
+
+function checkBoxFilterFalse() {
+  clearList();
+  const questionStatusFalse = list.filter(el => el.state == false);
+  questionStatusFalse.forEach(renderList);
+}
+
+function showAllQuestinon() {
+  clearList();
+  list.forEach(renderList);
+}
+showAllQuestinon();
