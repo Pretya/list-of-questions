@@ -1,6 +1,6 @@
 
 // ! Render List ==============
-const renderList = function(el, index) {
+const renderList = (el, index) => {
   const listIndex = (index + 1);
   const elStateTrue = el.state == true;
   const stateSpan = elStateTrue ? 'has-text-success' : 'has-text-danger';
@@ -23,7 +23,7 @@ const renderList = function(el, index) {
 const checkBoxUnderstood = document.getElementById('check-understood');
 const checkBoxDidntUnderstand = document.getElementById('check-didntUnderstand');
 
-const checkboxAllQuestions = function(){
+const checkboxAllUncheck = () => {
   if(checkBoxDidntUnderstand.checked == false && checkBoxUnderstood.checked == false) {
     showAllQuestinon();
   }
@@ -36,7 +36,7 @@ function checkBoxStateTrue() {
     if(checkBoxDidntUnderstand.checked){
       checkBoxUnderstood.checked = false;
     }
-    checkboxAllQuestions();
+    checkboxAllUncheck();
 }
 
 
@@ -44,7 +44,7 @@ function checkBoxStateFalse() {
     if(checkBoxDidntUnderstand.checked){
       checkBoxUnderstood.checked = false;
     }
-    checkboxAllQuestions();
+    checkboxAllUncheck();
 }
 
 // ! Textarea ===============
@@ -57,7 +57,6 @@ function checkBoxStateFalse() {
         clearList();
         list.forEach(renderList);
         document.getElementById('add-question').value = "";
-        console.log(list);
       }
       if(checkBoxDidntUnderstand.checked == true || checkBoxUnderstood.checked == true) {
         checkBoxDidntUnderstand.checked = false;
@@ -85,3 +84,6 @@ function showAllQuestinon() {
   list.forEach(renderList);
 }
 showAllQuestinon();
+
+
+
