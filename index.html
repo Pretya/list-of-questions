@@ -20,14 +20,15 @@
           <textarea class="p-3" rows="4" cols="50" name="add-question" id="add-question" placeholder="Введите вопрос"></textarea>
           <button class="button is-primary ml-3" onclick="submitQueastion()">Добавить вопрос</button>
         </div>
-        <div class="list-checkbox has-background-grey-darker is-justify-content-space-between is-flex p-3 mt-3 card">
-          <span class="has-text-white mr-3 is-size-5">Фильтр <i class="fa-solid fa-arrow-right is-size-6"></i></span>
-          <span>
-            <label class="has-text-success" for="check-understood">Спрятать вопросы в которых не разобрался</label>
-            <input type="checkbox" id="check-understood" onchange="checkBoxStateTrue()" onclick="checkBoxFilterTrue()">
-            <label class="has-text-danger ml-4 mr" for="check-didntUnderstand">Спрятать вопросы в которых разобрался</label>
-            <input class="mr-3" type="checkbox" id="check-didntUnderstand" onchange="checkBoxStateFalse()" onclick="checkBoxFilterFalse()">
-          </span>
+        <div class="list-checkbox has-background-grey-darker is-justify-content-end is-flex p-3 mt-3 card">
+            <span>
+              <label class="has-text-success" for="check-understood">Спрятать вопросы в которых не разобрался</label>
+              <input class="input-checkbox" type="checkbox" id="check-understood">
+            </span>
+            <span>
+              <label class="has-text-danger ml-4 mr" for="check-didntUnderstand">Спрятать вопросы в которых разобрался</label>
+              <input class="input-checkbox mr-3" type="checkbox" id="check-didntUnderstand">
+            </span>
         </div>
       </div> 
         
