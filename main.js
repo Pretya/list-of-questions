@@ -1,5 +1,5 @@
 const listElement = document.getElementById('list');
-const listCheckbox = document.querySelector('list-checkbox');
+const listCheckbox = document.querySelector('.list-checkbox');
 
 // ! Render List ==============
 const renderList = (el, index) => {
@@ -8,6 +8,7 @@ const renderList = (el, index) => {
   const stateSpan = elStateTrue ? 'has-text-success' : 'has-text-danger';
   const stateIcon = elStateTrue ? 'fa-check-square' : 'fa-ban';
   const stateText = elStateTrue ? 'Разобрался' : 'Не разобрался';
+  
   listElement.insertAdjacentHTML('beforeend', 
               `<div class="card p-5 mt-3 has-text-link has-background-white">
                     ${listIndex}. ${el.question}
@@ -29,24 +30,21 @@ const renderList = (el, index) => {
 const checkBoxUnderstood = document.getElementById('check-understood');
 const checkBoxDidntUnderstand = document.getElementById('check-didntUnderstand');
 
-document.querySelectorAll('.input-checkbox')
-  .forEach((el) => {
-    el.addEventListener('change', function(e){
-      let targetCheckbox = e.target.closest('input');
-        if(targetCheckbox === checkBoxUnderstood) {
-          checkBoxFilterTrue();
-          checkBoxDidntUnderstand.checked = false;
-        }
-        else if(targetCheckbox === checkBoxDidntUnderstand) {
-          checkBoxFilterFalse();
-          checkBoxUnderstood.checked = false;
-        } 
-        if (!checkBoxDidntUnderstand.checked && !checkBoxUnderstood.checked){
-          showAllQuestinon();
-        }
-          subscribe ()
-    })
-  })
+listCheckbox.addEventListener('change', function(e){
+  let targetCheckbox = e.target.closest('input');
+    if(targetCheckbox === checkBoxUnderstood) {
+                checkBoxFilterTrue();
+                checkBoxDidntUnderstand.checked = false;
+              }
+              else if(targetCheckbox === checkBoxDidntUnderstand) {
+                checkBoxFilterFalse();
+                checkBoxUnderstood.checked = false;
+              } 
+              if (!checkBoxDidntUnderstand.checked && !checkBoxUnderstood.checked){
+                showAllQuestinon();
+              }
+})
+
 
 // ! Textarea ===============
   function submitQueastion() {
@@ -79,60 +77,37 @@ function checkBoxFilterFalse() {
   clearList();
   const questionStatusFalse = list.filter(el => el.state == false);
   questionStatusFalse.forEach(renderList);
-  
 }
 
 function showAllQuestinon() {
   clearList();
   list.forEach(renderList);
-  subscribe ()
 }
 showAllQuestinon();
 
-// ! Change status button =============
-function changeStatus(id) {
- const currentStatus = list[id];
- currentStatus.state = !currentStatus.state;
- checkBoxDidntUnderstand.checked = false;
- checkBoxUnderstood.checked = false;
- showAllQuestinon();
-}
-function subscribe () {
-  document.querySelectorAll('#list > div .button')
-  .forEach((el,) => {
-      const idButton = el.dataset.id;
-        el.addEventListener('click', function(){
-        changeStatus(idButton);
-        });
-<<<<<<< HEAD
-
-        el.addEventListener('mouseover', function(e) {
-          let targetButton = e.target.closest('button');
-          if(!targetButton) return;
-          targetButton.style.cssText = `background-color: #764d9d; transition: all .3s linear;`
-        })
-
-        el.addEventListener('mouseout', function(e) {
-          let targetButton = e.target.closest('button');
-          if(!targetButton) return;
-          targetButton.style.cssText = `transition: all .3s linear;`
-        })
-})
-}
-
-=======
->>>>>>> 5a06ecd53b422543ffdc7e1aef27d50060c453e5
-
-        el.addEventListener('mouseover', function(e) {
-          let targetButton = e.target.closest('button');
-          if(!targetButton) return;
-          targetButton.style.cssText = `background-color: #764d9d; transition: all .3s linear;`
-        })
-
-        el.addEventListener('mouseout', function(e) {
-          let targetButton = e.target.closest('button');
-          if(!targetButton) return;
-          targetButton.style.cssText = `transition: all .3s linear;`
-        })
-})
-}
+// ! Change status button and style bg-color =============
+  listElement
+    .addEventListener('click', function(e){
+      let targetButton = e.target.closest('button');
+      const idButton = e.target.dataset.id;
+      if(targetButton) {
+        if(idButton){
+          const currentStatus = list[idButton];
+          console.log(currentStatus);
+          currentStatus.state = !currentStatus.state;
+          checkBoxDidntUnderstand.checked = false;
+          checkBoxUnderstood.checked = false;
+          showAllQuestinon();
+        }
+      }
+  })
+  listElement.addEventListener('mouseover', function(e){
+    let targetButton = e.target.closest('button');
+    if(!targetButton) return;
+    targetButton.style.cssText = `background-color: #764d9d; transition: all .3s linear;`;
+  })
+  listElement.addEventListener('mouseout', function(e){
+    let targetButton = e.target.closest('button');
+    if(!targetButton) return;
+    targetButton.style.cssText = `transition: all .5s linear;`;
+  })
