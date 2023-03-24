@@ -104,6 +104,7 @@ function subscribe () {
         el.addEventListener('click', function(){
         changeStatus(idButton);
         });
+<<<<<<< HEAD
 
         el.addEventListener('mouseover', function(e) {
           let targetButton = e.target.closest('button');
@@ -119,5 +120,19 @@ function subscribe () {
 })
 }
 
+=======
+>>>>>>> 5a06ecd53b422543ffdc7e1aef27d50060c453e5
 
+        el.addEventListener('mouseover', function(e) {
+          let targetButton = e.target.closest('button');
+          if(!targetButton) return;
+          targetButton.style.cssText = `background-color: #764d9d; transition: all .3s linear;`
+        })
 
+        el.addEventListener('mouseout', function(e) {
+          let targetButton = e.target.closest('button');
+          if(!targetButton) return;
+          targetButton.style.cssText = `transition: all .3s linear;`
+        })
+})
+}
